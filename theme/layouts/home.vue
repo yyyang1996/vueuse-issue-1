@@ -2,17 +2,25 @@
   <div style="text-align:center;">
     <div>{{ isDark ? 'dark' : 'light' }}</div>
     <button @click="toggleDark">toggle</button>
+
+    <br />
+    <button>
+      <router-link to="/post.html">post</router-link>
+    </button>
   </div>
 </template>
 
 <script>
 import { useDark, useToggle } from "@vueuse/core";
 import { watchEffect } from "vue";
+import { usePageData } from '@vuepress/client'
 
 export default {
   name: "Home",
 
   setup() {
+    const pageData = usePageData()
+
     const isDark = useDark({
       selector: "body",
       attribute: "class",
