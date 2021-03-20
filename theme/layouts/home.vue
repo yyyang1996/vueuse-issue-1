@@ -1,0 +1,46 @@
+<template>
+  <div style="text-align:center;">
+    <div>{{ isDark ? 'dark' : 'light' }}</div>
+    <button @click="toggleDark">toggle</button>
+  </div>
+</template>
+
+<script>
+import { useDark, useToggle } from "@vueuse/core";
+import { watchEffect } from "vue";
+
+export default {
+  name: "Home",
+
+  setup() {
+    const isDark = useDark({
+      selector: "body",
+      attribute: "class",
+      valueDark: "dark",
+      valueLight: "light",
+    });
+    const toggleDark = useToggle(isDark);
+
+    watchEffect(() => {
+      console.log("isDark", isDark.value);
+    });
+
+    return {
+      isDark,
+      toggleDark
+    }
+  },
+};
+</script>
+
+<style>
+.dark {
+  background: #000;
+  color: #fff;
+}
+
+.light {
+  color: #000;
+  background: #fff;
+}
+</style>
